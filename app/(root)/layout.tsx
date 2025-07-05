@@ -12,6 +12,23 @@ const Layout = async ({ children }: {children: ReactNode}) =>{
 
   if (!session) redirect("/sign-in");
 
+  after(async () => {
+    if (!session?.user?.id) return;
+
+    const user = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, session?.user?.id))
+      .limit(1);
+
+    if (user[0].lastActivityDate === new Date().toISOString().slice(0, 10))
+      return;
+
+    await db
+      .update(users)
+      .set({ lastActivityDate: new Date().toISOString().slice(0, 10) })
+      .where(eq(users.id, session?.user?.id));
+  });
     return (
         <main className="flex min-h-screen flex-1 flex-col bg-pattern bg-cover bg-top bg-[#16191E] px-5 md:px-16">
             <div className="mx-auto max-w-7xl">
