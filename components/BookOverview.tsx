@@ -29,7 +29,7 @@ const BookOverview = async ({
     .limit(1);
 
   const borrowingEligibility = {
-    isEligible: availableCopies > 0 && user.status === "APPROVE",
+    isEligible: availableCopies > 0 && user?.status === "APPROVE",
     message:
       availableCopies <= 0
         ? "Book is not available"
@@ -86,7 +86,13 @@ const BookOverview = async ({
 
             <p className="mt-2 text-justify text-xl text-[#D6E0FF]">{description}</p>
 
-            <BorrowBook bookId={id} userId={userId} borrowingEligibility={borrowingEligibility}/>
+            {user && (
+          <BorrowBook
+            bookId={id}
+            userId={userId}
+            borrowingEligibility={borrowingEligibility}
+          />
+        )}
 
             
         </div>
