@@ -9,8 +9,8 @@ const BookCard = ({
   id,
   title,
   genre,
-  color,
-  cover,
+  coverColor,
+  coverUrl,
   isLoanedBook = false,
 }: Book) =>(
     <li className={cn(isLoanedBook && "sm:w-52 w-full")}>
@@ -18,7 +18,7 @@ const BookCard = ({
       href={`/books/${id}`}
       className={cn(isLoanedBook && "w-full flex flex-col items-center")}
     >
-      <BookCover coverColor={color} coverImage={cover} />
+      <BookCover coverColor={coverColor} coverImage={coverUrl} />
 
       <div className={cn("mt-4", !isLoanedBook && "xs:max-w-40 max-w-28")}>
         <p className="mt-2 line-clamp-1 text-base font-semibold text-white [min-w-475px]:text-xl">{title}</p>

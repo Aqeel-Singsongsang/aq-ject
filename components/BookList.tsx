@@ -8,9 +8,11 @@ interface Props {
 }
 
 const BookList = ({ title, books, containerClassName }: Props) =>{
+  if (books.length < 2) return;
+
     return( 
     <section>
-    <h2 className="font-bebas-neue text-4xl text-[#D6E0FF]">{title}</h2>
+      <h2 className="font-bebas-neue text-4xl text-[#D6E0FF]">{title}</h2>
 
       <ul className="mt-10 flex flex-wrap gap-5 max-xs:justify-between xs:gap-10">
         {books.map((book) => (
